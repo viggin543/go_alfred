@@ -4,10 +4,10 @@ import "strings"
 import "example.com/banana/teamcity/internal/logger"
 
 type Item struct {
-	Title string  `json:"title"`
-	Subtitle string  `json:"subtitle"`
-	Arg string  `json:"arg"`
-	Id string  `json:"id"`
+	Title    string `json:"title"`
+	Subtitle string `json:"subtitle"`
+	Arg      string `json:"arg"`
+	Id       string `json:"id"`
 }
 type Items struct {
 	Items []*Item `json:"items"`
@@ -25,7 +25,7 @@ func (items *Items) FilterByString(token string) []*Item {
 	})
 }
 
-func (items *Items ) Filter( pred func(item *Item) bool) []*Item {
+func (items *Items) Filter(pred func(item *Item) bool) []*Item {
 	needed := items.Count(pred)
 	ret := make([]*Item, needed)
 	idx := 0
@@ -39,13 +39,12 @@ func (items *Items ) Filter( pred func(item *Item) bool) []*Item {
 	return ret
 }
 
-func (items *Items ) Count( pred func(item *Item) bool) int {
+func (items *Items) Count(pred func(item *Item) bool) int {
 	var count = 0
-	for _,item := range items.Items {
-		if pred(item){ count ++ }
+	for _, item := range items.Items {
+		if pred(item) {
+			count++
+		}
 	}
 	return count
 }
-
-
-

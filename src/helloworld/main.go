@@ -5,9 +5,9 @@ import (
 	"os"
 )
 
-func main(){
+func main() {
 	if len(os.Args) == 2 {
-		fmt.Println("hello ",os.Args[1])
+		fmt.Println("hello ", os.Args[1])
 	} else {
 		fmt.Println("hello world")
 	}

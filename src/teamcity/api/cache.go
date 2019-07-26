@@ -11,13 +11,12 @@ import (
 
 func readCacheFile(route string) (string, os.FileInfo, error) {
 	split := strings.Split(route, "/")
-	cacheFileName := "./cache/" + split[len(split)-1]+".xml"
+	cacheFileName := "./cache/" + split[len(split)-1] + ".xml"
 	file, err := os.Stat(cacheFileName)
 	return cacheFileName, file, err
 }
 
-
-func cacheResponse(res *http.Response, cacheFileName string ) []byte  {
+func cacheResponse(res *http.Response, cacheFileName string) []byte {
 	body, _ := ioutil.ReadAll(res.Body)
 	createCAcheDir(cacheFileName)
 	writeCAcheFile(cacheFileName, body)
@@ -34,7 +33,7 @@ func writeCAcheFile(cacheFileName string, body []byte) {
 }
 
 func createCAcheDir(cacheFileName string) {
-	split := strings.Split( cacheFileName,"/")
+	split := strings.Split(cacheFileName, "/")
 	cacheDir := strings.Join(split[:len(split)-1], "/")
 	mkdirErr := os.Mkdir(cacheDir, os.FileMode(0777))
 	if mkdirErr != nil {

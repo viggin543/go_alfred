@@ -14,18 +14,17 @@ type ITeamcityClient interface {
 	FetchBuildTypes() *model.BuildTypes
 }
 
-type TeamcityClient struct {}
-
+type TeamcityClient struct{}
 
 func (client *TeamcityClient) FetchProjects() *model.Projects {
 	var projects model.Projects
-	fetchAndUnmarshal("build.innovid.com/httpAuth/app/rest/projects",&projects)
+	fetchAndUnmarshal("build.innovid.com/httpAuth/app/rest/projects", &projects)
 	return &projects
 }
 
 func (client *TeamcityClient) FetchBuildTypes() *model.BuildTypes {
 	var buildTypes model.BuildTypes
-	fetchAndUnmarshal("build.innovid.com/httpAuth/app/rest/buildTypes",&buildTypes)
+	fetchAndUnmarshal("build.innovid.com/httpAuth/app/rest/buildTypes", &buildTypes)
 	return &buildTypes
 }
 
@@ -45,7 +44,7 @@ func fetch(route string) []byte {
 	cacheFileName, file, err := readCacheFile(route)
 	if err != nil || notOldEnough(file) {
 		res, _ := http.Get(route)
-		return cacheResponse(res,cacheFileName)
+		return cacheResponse(res, cacheFileName)
 	} else {
 		bytes, _ := ioutil.ReadFile(cacheFileName)
 		return bytes

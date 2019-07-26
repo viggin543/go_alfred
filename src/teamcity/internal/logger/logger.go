@@ -12,6 +12,7 @@ var (
 const (
 	VERSION = "0.13"
 )
+
 //https://tutorialedge.net/golang/the-go-init-function/
 // very nice !
 // will be called only once. on the first import of this package.
@@ -25,5 +26,3 @@ func init() {
 	Log = log.New(file, "", log.LstdFlags|log.Lshortfile)
 	Log.Println("LogFile :  ./app.log " + "VERSION :" + VERSION)
 }
-
-

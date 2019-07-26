@@ -46,6 +46,7 @@ func fetch(route string) []byte {
 		res, _ := http.Get(route)
 		return cacheResponse(res, cacheFileName)
 	} else {
+
 		bytes, _ := ioutil.ReadFile(cacheFileName)
 		return bytes
 	}

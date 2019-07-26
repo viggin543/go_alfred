@@ -13,18 +13,15 @@ import (
 	"os"
 )
 
-
 var SearchToken string
 
 func main() {
 
-	var client api.ITeamcityClient  = &api.TeamcityClient{}
+	var client api.ITeamcityClient = &api.TeamcityClient{}
 
 	SearchToken = commandLineArg()
 
-
 	items := fetchItemsAndFilter(client)
-
 
 	printItemsAsJson(items)
 }
@@ -61,9 +58,6 @@ func commandLineArg() string {
 	if len(os.Args) == 1 {
 		return ""
 	} else {
-		return  os.Args[1]
+		return os.Args[1]
 	}
 }
-
-
-

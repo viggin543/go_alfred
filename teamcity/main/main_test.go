@@ -48,16 +48,12 @@ const Projects = `
 </projects>
 `
 
-
-
 func TestMain(m *testing.M) {
 	logger.Log.SetOutput(os.Stdout)
 	code := m.Run()
 	_ = os.Remove("app.log")
 	os.Exit(code)
 }
-
-
 
 func TestFetchItemsAndFilter(t *testing.T) {
 
@@ -68,14 +64,12 @@ func TestFetchItemsAndFilter(t *testing.T) {
 	_ = xml.Unmarshal([]byte(BuildTypes), &buildTypes)
 	_ = xml.Unmarshal([]byte(Projects), &projects)
 
-
 	mockTcClient.On("FetchProjects", mock.Anything).Return(&projects)
 	mockTcClient.On("FetchBuildTypes", mock.Anything).Return(&buildTypes)
 
 	SearchToken = "XXX"
 	filter := fetchItemsAndFilter(mockTcClient)
 	mockTcClient.AssertExpectations(t)
-	assert.Equal(t,2,len(filter.Items))
+	assert.Equal(t, 2, len(filter.Items))
 
 }
-

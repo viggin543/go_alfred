@@ -10,9 +10,6 @@ pipeline {
             steps {
                 echo 'Hello world!'
             }
-            steps {
-                echo "da"
-            }
         }
 
     }

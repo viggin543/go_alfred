@@ -1,0 +1,6 @@
+2019/07/26 12:51:59 logger.go:27: LogFile :  ./app.log VERSION :0.13
+2019/07/26 12:51:59 main.go:29: searching for teamcity projects/builds with with search token: 
+2019/07/26 12:52:01 cache.go:32: cached ->  ./cache/projects.xml 261138
+2019/07/26 12:52:04 cache.go:41: ERROR failed to craete cache dir in:  ./cache mkdir ./cache: file exists
+2019/07/26 12:52:04 cache.go:32: cached ->  ./cache/buildTypes.xml 1419303
+2019/07/26 12:52:04 Items.go:38: as

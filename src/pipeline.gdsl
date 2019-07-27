@@ -51,7 +51,7 @@ contributor(ctx) {
     method(name: 'getContext', type: 'Object', params: [type:'Map'], doc: 'Advanced/Deprecated Get contextual object from internal APIs')
     method(name: 'withContext', type: 'Object', params: [context:java.lang.Object, body:'Closure'], doc: 'Advanced/Deprecated Use contextual object from internal APIs within a block')
     property(name: 'docker', type: 'org.jenkinsci.plugins.docker.workflow.DockerDSL')
-    property(name: 'pipeline', type: 'org.jenkinsci.plugins.pipeline.modeldefinition.ModelStepLoader')
+    method(name: 'pipeline', type: 'Object', params: [body:'Closure'], doc: 'Pipeline root element')
     property(name: 'env', type: 'org.jenkinsci.plugins.workflow.cps.EnvActionImpl.Binder')
     property(name: 'params', type: 'org.jenkinsci.plugins.workflow.cps.ParamsVariable')
     property(name: 'currentBuild', type: 'org.jenkinsci.plugins.workflow.cps.RunWrapperBinder')

@@ -3,8 +3,10 @@
 
 //https://st-g.de/2016/08/jenkins-pipeline-autocompletion-in-intellij
 //http://localhost:8080/job/go_alfred/pipeline-syntax/gdsl << GET THE DSL
+
+// https://confluence.jetbrains.com/display/GRVY/Scripting+IDE+for+DSL+awareness << creating custom groovy dsl
 pipeline {
-    agent any()
+    agent any
     environment {
         BANANA = 'banana'
     }

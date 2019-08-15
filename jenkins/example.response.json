@@ -1,0 +1,29 @@
+{
+  "_class": "hudson.model.Hudson",
+  "jobs": [
+    {
+      "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+      "name": "go_alfred"
+    },
+    {
+      "_class": "hudson.model.FreeStyleProject",
+      "name": "hello world"
+    }
+  ],
+  "views": [
+    {
+      "_class": "hudson.model.AllView",
+      "jobs": [
+        {
+          "_class": "org.jenkinsci.plugins.workflow.job.WorkflowJob",
+          "name": "go_alfred"
+        },
+        {
+          "_class": "hudson.model.FreeStyleProject",
+          "name": "hello world"
+        }
+      ],
+      "name": "all"
+    }
+  ]
+}

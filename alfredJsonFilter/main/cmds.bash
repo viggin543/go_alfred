@@ -1,0 +1,1 @@
+go build -o toJson main.go &&  echo 'banana/da\ntapuz/lo' | ./toJson

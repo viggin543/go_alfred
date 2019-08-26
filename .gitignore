@@ -17,3 +17,5 @@
 # vendor/
 
 jenkins/app.log
+app.log
+toJson

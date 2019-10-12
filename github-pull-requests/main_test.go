@@ -27,7 +27,6 @@ func TestGetRepos(t *testing.T) {
 	if len(repos) == 0 {
 		t.Fail()
 	}
-
 	if !contains(repos, "svc-web") {
 		t.Fail()
 	}

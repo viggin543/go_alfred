@@ -2,13 +2,10 @@ package main
 
 import (
 	"encoding/json"
+	"example.com/banana/alfred"
 	"example.com/banana/teamcity/api"
-	//logger is an internal package. in can be consumed within teamcity module
-	//teamcity => internal
-	// cant be consumed outside. very nice
 	"example.com/banana/teamcity/internal/logger"
-	//https://blog.learngoprogramming.com/special-packages-and-directories-in-go-1d6295690a6b
-	"example.com/banana/teamcity/model"
+
 	"fmt"
 	"os"
 )
@@ -26,11 +23,11 @@ func main() {
 	printItemsAsJson(items)
 }
 
-func fetchItemsAndFilter(client api.ITeamcityClient) model.Items {
+func fetchItemsAndFilter(client api.ITeamcityClient) alfred.Items {
 	logger.Log.Println("searching for teamcity projects/builds with with search token: " + SearchToken)
 
-	var projects = make(chan []*model.Item)
-	var buildTypes = make(chan []*model.Item)
+	var projects = make(chan []*alfred.Item)
+	var buildTypes = make(chan []*alfred.Item)
 	go func() {
 		fetchProjects := client.FetchProjects()
 		projects <- fetchProjects.ToItems()
@@ -42,14 +39,14 @@ func fetchItemsAndFilter(client api.ITeamcityClient) model.Items {
 	return items
 }
 
-func printItemsAsJson(items model.Items) {
+func printItemsAsJson(items alfred.Items) {
 	itemsJson, _ := json.Marshal(items)
 	fmt.Println(string(itemsJson))
 }
 
-func filterItemsByCommandLineArg(projects chan []*model.Item, buildTypes chan []*model.Item) model.Items {
-	return model.Items{
-		Items: model.FilterItems(
+func filterItemsByCommandLineArg(projects chan []*alfred.Item, buildTypes chan []*alfred.Item) alfred.Items {
+	return alfred.Items{
+		Items: alfred.FilterItems(
 			append(<-projects, <-buildTypes...),
 			SearchToken)}
 }

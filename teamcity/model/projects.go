@@ -1,6 +1,9 @@
 package model
 
-import "encoding/xml"
+import (
+	"encoding/xml"
+	"example.com/banana/alfred"
+)
 
 type Project struct {
 	XMLName     xml.Name `xml:"project"`
@@ -15,10 +18,10 @@ type Projects struct {
 	Projects []Project `xml:"project"`
 }
 
-func (projects *Projects) ToItems() []*Item {
-	items := make([]*Item, len(projects.Projects))
+func (projects *Projects) ToItems() []*alfred.Item {
+	items := make([]*alfred.Item, len(projects.Projects))
 	for i, project := range projects.Projects {
-		items[i] = &Item{project.Name, project.WebUrl, project.WebUrl, project.Id}
+		items[i] = &alfred.Item{project.Name, project.WebUrl, project.WebUrl, project.Id}
 	}
 	return items
 }

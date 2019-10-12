@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/json"
+	"example.com/banana/alfred"
 	"fmt"
 	"github.com/buger/jsonparser"
 	"io/ioutil"
@@ -11,8 +13,10 @@ import (
 var pathToLocalRepositories string
 var githubUser string
 var githubPass string
+var executedByAlfred bool
 
 func init() {
+	executedByAlfred = os.Getenv("IS_EXECUTED_BY_ALFRED") != ""
 	githubUser = getEnvVar("GITHUB_USER")
 	githubPass = getEnvVar("GITHUB_PASS")
 	pathToLocalRepositories = getEnvVar("REPOS_DIR")
@@ -28,7 +32,38 @@ func getEnvVar(s string) string {
 
 func main() {
 	pullRequests := parallelGetPullRequests(localRepos())
-	fmt.Println(pullRequests)
+	prettyPrintPullRequests(pullRequests)
+
+	alfredPrintPullRequests(pullRequests)
+
+}
+
+func alfredPrintPullRequests(pullRequests []PullRequest) {
+	if executedByAlfred {
+		var items []*alfred.Item
+		for i, pr := range pullRequests {
+			if pr.user == githubUser {
+				items = append(items, &alfred.Item{Title: pr.link, Id: string(i),Arg:pr.link,Subtitle:pr.user})
+			}
+		}
+		bytes, _ := json.Marshal(alfred.Items{Items: items})
+		fmt.Println(string(bytes))
+	}
+}
+
+func prettyPrintPullRequests(pullRequests []PullRequest) {
+	if !executedByAlfred {
+		fmt.Println("Your pull requests:")
+		fmt.Println("")
+		if len(pullRequests) == 0 {
+			fmt.Println("Sorry.. it seems you have no open pull requests")
+		}
+		for _, pr := range pullRequests {
+			if pr.user == githubUser {
+				fmt.Println(pr.link)
+			}
+		}
+	}
 }
 
 func parallelGetPullRequests(repos []string) []PullRequest {

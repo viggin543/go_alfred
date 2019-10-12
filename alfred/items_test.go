@@ -1,4 +1,4 @@
-package model
+package alfred
 
 import (
 	"github.com/stretchr/testify/assert"

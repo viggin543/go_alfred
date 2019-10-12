@@ -1,7 +1,8 @@
-package model
+package alfred
 
-import "strings"
-import "example.com/banana/teamcity/internal/logger"
+import (
+	"strings"
+)
 
 type Item struct {
 	Title    string `json:"title"`
@@ -36,7 +37,6 @@ func (items *Items) Filter(pred func(item *Item) bool) []*Item {
 			idx++
 		}
 	}
-	logger.Log.Println("as")
 	return ret
 }
 

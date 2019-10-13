@@ -20,3 +20,4 @@ jenkins/app.log
 app.log
 toJson
 .env
+pull-requests

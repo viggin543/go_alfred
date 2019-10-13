@@ -8,10 +8,10 @@ can also output results in a json format for [alfred](https://www.alfredapp.com/
 
 ## usage 
 ```bash
-pull-requeats
-# will print your pull requests
-pull-requeats -alfred
-#will print pull requests in alfred format
+lpr
+# list pull requests
+lpr -alfred
+# will print pull requests in alfred format
 ```
  
 ## configuration

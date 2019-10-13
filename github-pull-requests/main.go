@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"example.com/banana/alfred"
+	"flag"
 	"fmt"
 	"github.com/buger/jsonparser"
 	"io/ioutil"
@@ -14,15 +15,19 @@ var pathToLocalRepositories string
 var githubUser string
 var githubPass string
 var executedByAlfred bool
+var org string
 
 func init() {
-	executedByAlfred = os.Getenv("IS_EXECUTED_BY_ALFRED") != ""
-	githubUser = getEnvVar("GITHUB_USER")
-	githubPass = getEnvVar("GITHUB_PASS")
-	pathToLocalRepositories = getEnvVar("REPOS_DIR")
+	isAlfred := flag.Bool("alfred", false, "a boolean value ")
+	flag.Parse()
+	executedByAlfred = *isAlfred
+	githubUser = getEnvVarOrPanic("GITHUB_USER")
+	githubPass = getEnvVarOrPanic("GITHUB_PASS")
+	org = getEnvVarOrPanic("GITHUB_ORG")
+	pathToLocalRepositories = getEnvVarOrPanic("REPOS_DIR")
 }
 
-func getEnvVar(s string) string {
+func getEnvVarOrPanic(s string) string {
 	if os.Getenv(s) != "" {
 		return  os.Getenv(s)
 	} else {
@@ -33,9 +38,7 @@ func getEnvVar(s string) string {
 func main() {
 	pullRequests := parallelGetPullRequests(localRepos())
 	prettyPrintPullRequests(pullRequests)
-
 	alfredPrintPullRequests(pullRequests)
-
 }
 
 func alfredPrintPullRequests(pullRequests []PullRequest) {
@@ -45,6 +48,9 @@ func alfredPrintPullRequests(pullRequests []PullRequest) {
 			if pr.user == githubUser {
 				items = append(items, &alfred.Item{Title: pr.link, Id: string(i),Arg:pr.link,Subtitle:pr.user})
 			}
+		}
+		if len(items) == 0 {
+			items = append(items,&alfred.Item{Title:"no pull requests today...", Subtitle:"push something first..."})
 		}
 		bytes, _ := json.Marshal(alfred.Items{Items: items})
 		fmt.Println(string(bytes))
@@ -126,6 +132,6 @@ func fetchPullRequests(url string) *[]byte {
 }
 
 func pullRequestUrl(repo string) string {
-	return fmt.Sprintf("https://%s:%s@api.github.com/repos/tg-17/%s/pulls?state=open",
-		 githubUser, githubPass,repo)
+	return fmt.Sprintf("https://%s:%s@api.github.com/repos/%s/%s/pulls?state=open",
+		 githubUser, githubPass,org,repo)
 }

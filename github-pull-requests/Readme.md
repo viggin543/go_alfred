@@ -8,9 +8,9 @@ can also output results in a json format for [alfred](https://www.alfredapp.com/
 
 ## usage 
 ```bash
-lpr
+PullRequests
 # list pull requests
-lpr -alfred
+PullRequests -alfred
 # will print pull requests in alfred format
 ```
  

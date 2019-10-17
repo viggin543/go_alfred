@@ -1,0 +1,13 @@
+#!/bin/bash -l
+
+echo 'cleaning local branches that where deleted'
+
+remote=(`git ls-remote --heads | awk '{print $2}' | sed 's%refs/heads/%%g' | grep -v From`)
+_local=(`git branch -l | grep -v '*'`)
+
+for i in ${_local[@]};do 
+  if [[ ! ${remote[@]}  =~ $i ]];then
+      git branch -D $i
+  fi 
+done
+

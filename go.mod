@@ -1,6 +1,7 @@
 module example.com/banana
 
 require (
+	github.com/DataDog/datadog-go v2.2.0+incompatible // indirect
 	github.com/buger/jsonparser v0.0.0-20181115193947-bf1c66bbce23
 	github.com/golang/protobuf v1.3.1
 	github.com/stretchr/testify v1.3.0

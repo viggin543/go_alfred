@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/bash
 
 echo 'cleaning local branches that where deleted'
 

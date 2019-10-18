@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]; then echo "usage: createTicket <title> <description>" && exit 1 fi
+if [ $# -ne 2 ]; then echo "usage: createTicket <title> <description>" && exit 1; fi
 if [ -z ${JIRA_USER} ]; then echo "JIRA_USE env var is missing, plz add it to your zsh profile" && exit 1; fi
 if [ -z ${JIRA_PASS} ]; then echo "JIRA_PASS env var is missing, plz add it to your zsh profile" && exit 1 ; fi
 if [ -z ${JIRA_DOMAIN} ]; then echo "JIRA_DOMAIN env var is missing, plz add it to your zsh profile" && exit 1 ; fi
@@ -19,12 +19,13 @@ TICKET=$(cat <<-END
        },
        "issuetype": {
           "name": "Task"
-       }
+       },
+       "assignee":{"name":"${TEAM[${3}]}"}
    }
 }
 END
 )
-echo $TICKET > ticket_json
+echo ${TICKET} > ticket_json
 key=`curl -d @ticket_json  -H "Content-Type: application/json" \ 
 "https://${JIRA_USER}:${JIRA_PASS}@${JIRA_DOMAIN}/rest/api/2/issue/" | jq -r .key`
 echo "https://${JIRA_DOMAIN}/browse/${key}" | pbcopy

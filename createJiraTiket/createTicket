@@ -30,3 +30,4 @@ key=`curl -d @ticket_json  -H "Content-Type: application/json" "https://${JIRA_U
 echo "https://${JIRA_DOMAIN}/browse/${key}" | pbcopy
 echo "https://${JIRA_DOMAIN}/browse/${key}"
 rm ticket_json
+

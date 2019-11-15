@@ -1,0 +1,18 @@
+{
+  "fields": {
+    "project": {
+      "key": "UD"
+    },
+    "summary": "title",
+    "description": "description",
+    "customfield_10064": {
+      "value": "Backend"
+    },
+    "issuetype": {
+      "name": "Task"
+    },
+    "assignee": {
+      "name": ""
+    }
+  }
+}

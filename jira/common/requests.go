@@ -31,7 +31,7 @@ func BuildPostRequest(path string,body io.Reader) (*http.Request) {
 	return req
 }
 
-func BuilGetdRequest(path string) (*http.Request) {
+func BuilGetRequest(path string) (*http.Request) {
 	return buildRequest(path,"GET",nil)
 }
 

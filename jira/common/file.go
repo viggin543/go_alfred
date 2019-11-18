@@ -2,6 +2,7 @@ package common
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 )
@@ -16,4 +17,16 @@ func AppendToFile(fileame string, text string){
 	if _, err := f.WriteString(text+"\n"); err != nil {
 		log.Println(err)
 	}
+}
+
+func PrintFileContent(fileame string) *[]byte {
+	file, err := os.Open(fileame)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	b, _ := ioutil.ReadAll(file)
+	fmt.Println(b)
+	return &b
+
 }

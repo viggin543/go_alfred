@@ -24,7 +24,7 @@ func (t listProjectTeam) NoLogs() listProjectTeam {
 
 //Execute ...
 func (t listProjectTeam) Execute() []string {
-	req := common.BuilGetdRequest("/rest/api/2/user/assignable/search?project=UD")
+	req := common.BuilGetRequest("/rest/api/2/user/assignable/search?project=UD")
 	body := common.Execute(req)
 	jiraUsers := common.ParseToSplitStr(body, "$..name")
 	t.print(jiraUsers)

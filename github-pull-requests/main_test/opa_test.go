@@ -12,10 +12,7 @@ func TestJsonPath(t *testing.T) {
 	var da interface{}
 	_ = json.Unmarshal(body, &da)
 	authors, _ := jsonpath.Read(da, "$..html_url")
-	authors = Map(authors.([]interface{}), func(item interface{}) interface{} {
-		return item.(float64)
-	})
-	fmt.Println("b4 float",authors)
+	fmt.Println("b4 plus one",authors)
 	authors = Map(authors.([]interface{}), func(i interface{}) interface{} {
 		return i.(float64) + 1
 	})

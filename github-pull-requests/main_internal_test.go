@@ -38,9 +38,9 @@ func TestParallelGetPrs(t *testing.T) {
 
 func TestFilterPrs(t *testing.T) {
 	config.GithubUser = "me"
-	var pullRequests = []model.PullRequest{{User: "me",Link:"linkkk"},{User: "me_not",Link:"linkkk"}}
+	var pullRequests = Prs{{User: "me",Link:"linkkk"},{User: "me_not",Link:"linkkk"}}
 
-	pullRequests = filterMyPullRequests(pullRequests)
+	pullRequests = pullRequests.filterMyPullRequests()
 	if len(pullRequests) == 0 {
 		t.Log(pullRequests,"expected one result")
 		t.Fail()
@@ -49,5 +49,24 @@ func TestFilterPrs(t *testing.T) {
 		t.Log("should filter me",pullRequests[0].User)
 		t.Fail()
 	}
+}
+
+
+
+func TestPullRequestsExtensions(t *testing.T) {
+	var pullRequests = Prs{{User: "me",Link:"linkkk"},{User: "me_not",Link:"linkkk"}}
+	pullRequests.filterMine()
+	t.Log(pullRequests)
 
 }
+
+func (prs Prs) filterMine() Prs {
+	var res = make([]model.PullRequest,0,len(prs))
+	for _,pr := range prs {
+		if pr.User == config.GithubUser {
+			res = append(res,pr)
+		}
+	}
+	return res
+}
+

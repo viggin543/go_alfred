@@ -8,18 +8,18 @@ import (
 )
 
 
+type Prs []model.PullRequest
 
 func main() {
-	pullRequests := filterMyPullRequests(
-		parallelGetPullRequests(config.LocalRepos()));
+	pullRequests := parallelGetPullRequests(config.LocalRepos()).filterMyPullRequests()
 	output.PrettyPrintPullRequests(pullRequests)
 	output.AlfredPrintPullRequests(pullRequests)
 }
 
 
 
-func filterMyPullRequests(prs []model.PullRequest)  []model.PullRequest {
-	var res = []model.PullRequest{}
+func ( prs Prs) filterMyPullRequests() Prs {
+	var res = make([]model.PullRequest,0,len(prs))
 	for _,pr := range prs {
 		if pr.User == config.GithubUser {
 			res = append(res,pr)
@@ -28,7 +28,7 @@ func filterMyPullRequests(prs []model.PullRequest)  []model.PullRequest {
 	return res
 }
 
-func parallelGetPullRequests(repos []string) []model.PullRequest {
+func parallelGetPullRequests(repos []string) Prs {
 	pullRequests := make(chan []model.PullRequest)
 	for _, repo := range repos {
 		go func(repo string) {

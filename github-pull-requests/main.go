@@ -10,12 +10,23 @@ import (
 
 
 func main() {
-	pullRequests := parallelGetPullRequests(config.LocalRepos())
+	pullRequests := filterMyPullRequests(
+		parallelGetPullRequests(config.LocalRepos()));
 	output.PrettyPrintPullRequests(pullRequests)
 	output.AlfredPrintPullRequests(pullRequests)
 }
 
 
+
+func filterMyPullRequests(prs []model.PullRequest)  []model.PullRequest {
+	var res = []model.PullRequest{}
+	for _,pr := range prs {
+		if pr.User == config.GithubUser {
+			res = append(res,pr)
+		}
+	}
+	return res
+}
 
 func parallelGetPullRequests(repos []string) []model.PullRequest {
 	pullRequests := make(chan []model.PullRequest)

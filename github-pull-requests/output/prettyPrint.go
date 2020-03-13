@@ -14,9 +14,7 @@ func PrettyPrintPullRequests(pullRequests []model.PullRequest) {
 			fmt.Println("Sorry.. it seems you have no open pull requests")
 		}
 		for _, pr := range pullRequests {
-			if pr.User == config.GithubUser {
-				fmt.Println(pr.Link)
-			}
+			fmt.Println(pr.Link)
 		}
 	}
 }

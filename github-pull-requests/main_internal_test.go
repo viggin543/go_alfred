@@ -1,44 +1,28 @@
 package main
 
 import (
+	"example.com/banana/github-pull-requests/api"
 	"fmt"
 	"strings"
 	"testing"
 )
 
 
-func TestGoogleRequest(t *testing.T) {
-	pr := getPullRequests("svc-subject")
+func TestGetPullRequests(t *testing.T) {
+	pr := api.GetPullRequests("svc-subject")
 	if len(pr) != 1 {
 		fmt.Println("len(pr)", len(pr))
 		t.Fail()
 	}
-	if !strings.Contains(pr[0].link, "http") {
+	if !strings.Contains(pr[0].Link, "http") {
 		fmt.Println(pr[0])
+		fmt.Println("fail invalid link")
 		t.Fail()
 	}
-	if pr[0].user != "viggin543" {
+	if pr[0].User == "" {
 		fmt.Println(pr[0])
+		fmt.Println("fail invalid user")
 		t.Fail()
 	}
 }
 
-func TestGetRepos(t *testing.T) {
-	repos := localRepos()
-	if len(repos) == 0 {
-		t.Fail()
-	}
-	if !contains(repos, "svc-web") {
-		t.Fail()
-	}
-}
-
-func contains(highstack []string, niddle string) bool {
-	pass := false
-	for _, elm := range highstack {
-		if elm == niddle {
-			pass = true
-		}
-	}
-	return pass
-}

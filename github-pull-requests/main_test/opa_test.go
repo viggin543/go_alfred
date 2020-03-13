@@ -4,19 +4,24 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/yalp/jsonpath"
+	"io/ioutil"
 	"testing"
 )
 
 func TestJsonPath(t *testing.T) {
-	var body = []byte(`{"html_url":456,"x":{"nested":{"html_url":111,"very_nested":{"html_url":222}}}}`)
+	content,_ :=ioutil.ReadFile("gtihub_response.json")
+	fmt.Println(content)
+	if len(content) == 0 {
+		t.Fail()
+	}
+
+
+
 	var da interface{}
-	_ = json.Unmarshal(body, &da)
-	authors, _ := jsonpath.Read(da, "$..html_url")
-	fmt.Println("b4 plus one",authors)
-	authors = Map(authors.([]interface{}), func(i interface{}) interface{} {
-		return i.(float64) + 1
-	})
-	fmt.Println("plus one",authors)
+	_ = json.Unmarshal([]byte("body"), &da)
+	authors, _ := jsonpath.Read(da, "$..[url,login]")
+	fmt.Println(authors)
+
 }
 
 func Map(collection []interface{}, action func(interface{}) interface{}) []interface{} {

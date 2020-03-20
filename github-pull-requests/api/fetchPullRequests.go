@@ -20,9 +20,10 @@ func marshal(body *[]byte) []model.PullRequest {
 	jsonparser.ArrayEach(*body, func(value []byte, dataType jsonparser.ValueType, offset int, err error) {
 		url, _, _, _ := jsonparser.Get(value, "html_url")
 		user, _, _, _ := jsonparser.Get(value, "user")
+		title, _, _, _ := jsonparser.Get(value, "title")
 		userLogin, _, _, _ := jsonparser.Get(user, "login")
 		if len(userLogin) + len(url) > 0 {
-			prs = append(prs, model.PullRequest{ string(userLogin),string(url)})
+			prs = append(prs, model.PullRequest{ string(title),string(url)})
 		}
 	})
 	return prs

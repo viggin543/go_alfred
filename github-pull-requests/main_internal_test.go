@@ -11,8 +11,9 @@ import (
 
 
 func TestGetPullRequests(t *testing.T) {
+	// todo: go wiremock ?
 	pr := api.GetPullRequests("svc-subject")
-	if len(pr) != 1 {
+	if len(pr) != 3 {
 		fmt.Println("len(pr)", len(pr))
 		t.Fail()
 	}

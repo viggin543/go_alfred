@@ -12,7 +12,7 @@ func AlfredPrintPullRequests(pullRequests []model.PullRequest) {
 	if config.ExecutedByAlfred {
 		var items []*alfred.Item
 		for i, pr := range pullRequests {
-			items = append(items, &alfred.Item{Title: pr.Link, Id: string(i), Arg: pr.Link, Subtitle: pr.User})
+			items = append(items, &alfred.Item{Title: pr.Link, Id: string(i), Arg: pr.Link, Subtitle: pr.Title})
 		}
 		if len(items) == 0 {
 			items = append(items,&alfred.Item{Title:"no pull requests today...", Subtitle:"push something first..."})

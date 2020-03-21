@@ -3,6 +3,5 @@ package model
 
 
 type PullRequest struct {
-	User string
-	Link string
+	User, Link, Title string
 }

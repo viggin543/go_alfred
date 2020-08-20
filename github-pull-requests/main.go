@@ -7,7 +7,6 @@ import (
 	"example.com/banana/github-pull-requests/output"
 )
 
-
 type Prs []model.PullRequest
 
 func main() {
@@ -45,7 +44,3 @@ func parallelGetPullRequests(repos []string) Prs {
 	}
 	return prr
 }
-
-
-
-

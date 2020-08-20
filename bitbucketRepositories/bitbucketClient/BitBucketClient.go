@@ -31,7 +31,6 @@ func GetRepositories() []Repo {
 
 type asyncReq struct {
 	waitGroup *sync.WaitGroup
-	page           int
 	channel        chan model.RepositoriesResponse
 }
 
